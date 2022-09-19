@@ -1,16 +1,14 @@
 import { useState } from "preact/hooks";
 import { Tasks } from "../components/Tasks.tsx";
 
-interface TodoProps {
-  start: number;
-}
-
 export default function Todo() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<string[]>([]);
   const [task, setTask] = useState("");
-  function removeTask(s) {
+
+  function removeTask(s: string) {
     setTasks((p) => p.filter((e) => e != s));
   }
+
   return (
     <div class="flex flex-col w-full">
       <form
@@ -26,7 +24,7 @@ export default function Todo() {
           placeholder="Write your task here..."
           type="text"
           value={task}
-          onInput={(e) => setTask(e.target.value)}
+          onInput={(e) => setTask((e.target as HTMLInputElement).value)}
         />
         <input
           type="submit"
