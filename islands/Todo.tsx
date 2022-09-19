@@ -10,7 +10,7 @@ export default function Todo() {
   }
 
   return (
-    <div class="flex flex-col w-full">
+    <div class="flex flex-col w-full pt-5">
       <form
         class="flex gap-2 w-full"
         onSubmit={(e) => {
@@ -20,7 +20,7 @@ export default function Todo() {
         }}
       >
         <input
-          class="w-5/6 border-1 border-gray-500 h-16 rounded p-2"
+          class="w-5/6 border-1 border-gray-500 h-10 rounded p-2"
           placeholder="Write your task here..."
           type="text"
           value={task}
@@ -29,7 +29,7 @@ export default function Todo() {
         <input
           type="submit"
           value="Add"
-          class="w-1/6 bg-blue-600 text-gray-50 rounded"
+          class="w-1/6 bg-blue-600 text-gray-50 rounded cursor-pointer hover:bg-blue-700 focus:bg-blue-700"
         >
         </input>
       </form>
