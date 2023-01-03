@@ -1,12 +1,18 @@
-import { useState } from "preact/hooks";
+import { useRef, useState } from "preact/hooks";
 import { Tasks } from "../components/Tasks.tsx";
 
-export default function Todo() {
-  const [tasks, setTasks] = useState<string[]>([]);
-  const [task, setTask] = useState("");
+export interface ITask {
+  uuid: string;
+  desc: string;
+}
 
-  function removeTask(s: string) {
-    setTasks((p) => p.filter((e) => e != s));
+export default function Todo() {
+  const [tasks, setTasks] = useState<ITask[]>([]);
+  // const [task, setTask] = useState("");
+  const taskRef = useRef<HTMLInputElement | null>(null);
+
+  function removeTask(uuid: string) {
+    setTasks((tasks) => tasks.filter((task) => task.uuid != uuid));
   }
 
   return (
@@ -15,16 +21,23 @@ export default function Todo() {
         class="flex gap-2 w-full"
         onSubmit={(e) => {
           e.preventDefault();
-          setTasks((p) => [...p, task]);
-          setTask("");
+          if (!taskRef?.current?.value) return;
+          setTasks((
+            p,
+          ) => [...p, {
+            desc: taskRef?.current?.value ?? "",
+            uuid: crypto.randomUUID(),
+          }]);
+          taskRef.current.value = "";
         }}
       >
         <input
           class="w-5/6 border-1 border-gray-500 h-10 rounded p-2"
           placeholder="Write your task here..."
           type="text"
-          value={task}
-          onInput={(e) => setTask((e.target as HTMLInputElement).value)}
+          ref={taskRef}
+          // value={task}
+          // onInput={(e) => setTask((e.target as HTMLInputElement).value)}
         />
         <input
           type="submit"
