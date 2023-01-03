@@ -8,7 +8,6 @@ export interface ITask {
 
 export default function Todo() {
   const [tasks, setTasks] = useState<ITask[]>([]);
-  // const [task, setTask] = useState("");
   const taskRef = useRef<HTMLInputElement | null>(null);
 
   function removeTask(uuid: string) {
@@ -36,8 +35,6 @@ export default function Todo() {
           placeholder="Write your task here..."
           type="text"
           ref={taskRef}
-          // value={task}
-          // onInput={(e) => setTask((e.target as HTMLInputElement).value)}
         />
         <input
           type="submit"
